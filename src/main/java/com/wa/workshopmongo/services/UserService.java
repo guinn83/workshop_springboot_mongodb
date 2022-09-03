@@ -1,6 +1,7 @@
 package com.wa.workshopmongo.services;
 
 import com.wa.workshopmongo.domain.User;
+import com.wa.workshopmongo.dto.UserDTO;
 import com.wa.workshopmongo.repositories.UserRepository;
 import com.wa.workshopmongo.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,18 @@ public class UserService implements Serializable {
     public User findById(String id) {
         Optional<User> user = repository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    }
+
+    public User insert(User obj) {
+        return repository.insert(obj);
+    }
+
+    public void delete(String id) {
+        findById(id);
+        repository.deleteById(id);
+    }
+
+    public User fromDTO(UserDTO objDTO) {
+        return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
     }
 }
