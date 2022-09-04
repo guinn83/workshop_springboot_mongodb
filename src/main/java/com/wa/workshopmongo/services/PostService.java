@@ -25,13 +25,8 @@ public class PostService implements Serializable {
         return post.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
 
-    public Post insert(Post obj) {
-        return repository.insert(obj);
-    }
-
-    public void delete(String id) {
-        findById(id);
-        repository.deleteById(id);
+    public List<Post> findByTitle(String text) {
+        return repository.findByTitle(text);
     }
 
 }
